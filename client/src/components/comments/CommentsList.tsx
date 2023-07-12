@@ -11,6 +11,8 @@ export default function CommentList({ postId }: { postId: string }) {
     );
 
     setCommentList(response.data);
+
+    console.log('commentList:', commentList);
   };
 
   useEffect(() => {
@@ -18,7 +20,18 @@ export default function CommentList({ postId }: { postId: string }) {
   }, []);
 
   const renderedComments = commentList.map((comment) => (
-    <li key={comment.id}>{comment.content}</li>
+    <li
+      key={comment.id}
+      className={`${
+        comment.status === 'approved'
+          ? 'bg-green-300'
+          : comment.status === 'rejected'
+          ? 'bg-red-300'
+          : 'bg-yellow-300'
+      }`}
+    >
+      {comment.content}
+    </li>
   ));
 
   return (

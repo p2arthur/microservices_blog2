@@ -38,13 +38,14 @@ app.post('/events', (req, res) => {
 
   if (type === 'CommentCreated') {
     const { id, content, postId } = data;
+    console.log('posts:', posts);
 
     if (posts[postId]) {
       posts[postId].comments.push({ id, content });
     }
   }
 
-  console.log(posts);
+  console.log('Query:', posts);
 
   res.sendStatus(201);
 });

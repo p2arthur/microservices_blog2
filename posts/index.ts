@@ -34,7 +34,7 @@ app.post('/posts', async (req, res) => {
 });
 
 app.post('/events', (req, res) => {
-  console.log(req.body.type);
+  console.log('Posts:', req.body.type);
   res.status(201).send('Event posted');
 });
 
