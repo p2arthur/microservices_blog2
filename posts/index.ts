@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 interface PostInterface {
   id: string;
   title: string;
+  comments: string[];
 }
 
 const posts: { [id: string]: PostInterface } = {};
@@ -23,11 +24,11 @@ app.post('/posts', async (req, res) => {
   const id = randomBytes(4).toString('hex') as string;
   const title = req.body.title as string;
 
-  posts[id] = { id, title };
+  posts[id] = { id, title, comments: [] };
 
   await axios.post('http://localhost:4005/events', {
     type: 'PostCreated',
-    data: { id, title },
+    data: { id, title, comments: [] },
   });
 
   res.status(201).send(posts[id]);
@@ -35,6 +36,7 @@ app.post('/posts', async (req, res) => {
 
 app.post('/events', (req, res) => {
   console.log('Posts:', req.body.type);
+  console.log('Type', req.body.type);
   res.status(201).send('Event posted');
 });
 

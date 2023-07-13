@@ -1,6 +1,5 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import axios from 'axios';
 import cors from 'cors';
 
 const app = express();
@@ -16,6 +15,7 @@ interface Post {
 interface Comment {
   id: string;
   content: string;
+  status: string;
 }
 
 interface Posts {
@@ -31,21 +31,43 @@ app.get('/posts', (req, res) => {
 app.post('/events', (req, res) => {
   const { type, data } = req.body;
 
+  console.log('Query event type:', type);
+  console.log('Query posts:', posts);
+
   if (type === 'PostCreated') {
     const { id, title } = data;
+
     posts[id] = { id, title, comments: [] };
+    console.log('Post created', posts);
   }
 
   if (type === 'CommentCreated') {
-    const { id, content, postId } = data;
-    console.log('posts:', posts);
+    const { id, content, postId, status } = data;
 
-    if (posts[postId]) {
-      posts[postId].comments.push({ id, content });
+    console.log('Comment added to a comment:', posts, postId);
+
+    const post = posts[postId];
+    if (post) {
+      post.comments.push({ id, content, status });
+      console.log('Comment created', post.comments);
     }
   }
 
-  console.log('Query:', posts);
+  if (type === 'CommentUpdated') {
+    const { id, content, postId, status } = data;
+
+    const post = posts[postId];
+    if (post) {
+      const comment = post.comments.find((comment) => comment.id === id);
+      if (comment) {
+        comment.id = id;
+        comment.content = content;
+        comment.status = status;
+        console.log('Comment updated', comment);
+        console.log('Querry comments posts', posts);
+      }
+    }
+  }
 
   res.sendStatus(201);
 });

@@ -8,7 +8,7 @@ export default function PostList() {
   const [postList, setPostList] = useState<PostInterface>({});
 
   const fetchPosts = async () => {
-    const response = await axios.get('http://localhost:4001/posts');
+    const response = await axios.get('http://localhost:4003/posts');
     console.log('all posts:', response.data);
     setPostList(response.data);
   };
@@ -18,7 +18,12 @@ export default function PostList() {
   }, []);
 
   const renderedPosts = Object.values(postList).map((post: PostInterface) => (
-    <PostCard key={post.id} title={post.title} id={post.id} />
+    <PostCard
+      key={post.id}
+      title={post.title}
+      id={post.id}
+      comments={post.comments}
+    />
   ));
 
   return <div className="grid grid-cols-4 gap-5">{renderedPosts}</div>;

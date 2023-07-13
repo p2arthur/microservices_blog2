@@ -2,7 +2,7 @@ import PostInterface from '../../interface/PostInterface';
 import CreateComment from '../comments/CreateComment';
 import CommentList from '../comments/CommentsList';
 
-export default function PostCard({ id, title }: PostInterface) {
+export default function PostCard({ id, title, comments }: PostInterface) {
   console.log('post', title);
   console.log('postId', id);
 
@@ -13,7 +13,7 @@ export default function PostCard({ id, title }: PostInterface) {
         <div className="h-px bg-purple-800 w-full" />
       </div>
 
-      <CommentList postId={id} />
+      <CommentList comments={comments} />
 
       <div>
         <CreateComment id={id} />

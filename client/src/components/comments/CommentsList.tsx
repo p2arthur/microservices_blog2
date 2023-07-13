@@ -2,22 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CommentInterface from '../../interface/CommentInterface';
 
-export default function CommentList({ postId }: { postId: string }) {
-  const [commentList, setCommentList] = useState<CommentInterface[]>([]);
-
-  const fetchComments = async () => {
-    const response = await axios.get(
-      `http://localhost:4002/posts/${postId}/comments`
-    );
-
-    setCommentList(response.data);
-
-    console.log('commentList:', commentList);
-  };
-
-  useEffect(() => {
-    fetchComments();
-  }, []);
+export default function CommentList({ comments }: { comments: [] }) {
+  const [commentList, setCommentList] = useState<CommentInterface[]>(comments);
 
   const renderedComments = commentList.map((comment) => (
     <li
