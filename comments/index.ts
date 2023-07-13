@@ -63,16 +63,14 @@ app.post('/events', async (req, res) => {
       status: '',
     };
 
-    const newStatus = content.includes('orange') ? 'rejected' : 'approved';
-
-    comment.status = newStatus;
+    comment.status = status;
     console.log('comment:', comment);
 
     await axios.post('http://localhost:4005/events', {
       type: 'CommentUpdated',
       data: {
         commentId,
-        status: newStatus,
+        status,
         postId,
         content,
       },

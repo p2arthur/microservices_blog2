@@ -13,9 +13,10 @@ interface Post {
 }
 
 interface Comment {
-  id: string;
+  commentId: string;
   content: string;
   status: string;
+  postId: string;
 }
 
 interface Posts {
@@ -42,25 +43,27 @@ app.post('/events', (req, res) => {
   }
 
   if (type === 'CommentCreated') {
-    const { id, content, postId, status } = data;
-
-    console.log('Comment added to a comment:', posts, postId);
+    const { commentId, content, postId, status } = data;
 
     const post = posts[postId];
     if (post) {
-      post.comments.push({ id, content, status });
+      post.comments.push({ commentId, content, status, postId });
       console.log('Comment created', post.comments);
     }
   }
 
   if (type === 'CommentUpdated') {
-    const { id, content, postId, status } = data;
-
+    const { commentId, content, postId, status } = data;
+    console.log('posts **** postId', posts, postId);
     const post = posts[postId];
     if (post) {
-      const comment = post.comments.find((comment) => comment.id === id);
+      console.log('post', post);
+      const comment = post.comments.find(
+        (comment) => comment.commentId === commentId
+      );
+
       if (comment) {
-        comment.id = id;
+        comment.commentId = commentId;
         comment.content = content;
         comment.status = status;
         console.log('Comment updated', comment);
