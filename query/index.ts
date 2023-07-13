@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import EventInterface from '../client/src/interface/EventInterface';
+
 import axios from 'axios';
 
 const app = express();
@@ -27,7 +27,7 @@ interface Posts {
 
 const posts: Posts = {};
 
-const handleEvent = ({ type, data }: EventInterface) => {
+const handleEvent = (type, data) => {
   const { commentId, content, postId, status } = data;
   switch (type) {
     case 'PostCreated':
@@ -70,18 +70,14 @@ app.get('/posts', (req, res) => {
 
 app.post('/events', (req, res) => {
   const { type, data } = req.body;
-  handleEvent({ type, data });
-  console.log('Query event type:', type);
-  console.log('Query posts:', posts);
+  handleEvent(type, data);
 
   res.sendStatus(201);
 });
 
 app.listen(4003, async () => {
   console.log('Listening for events on port 4003');
-  const { data } = await axios.get('http://localhost:4005/events');
+  // const { data } = await axios.get('http://localhost:4005/events');
 
-  data.forEach((event: EventInterface) =>
-    handleEvent({ type: event.type, data: event.data })
-  );
+  // data.forEach((event) => handleEvent(event.type, event.data));
 });

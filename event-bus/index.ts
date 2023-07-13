@@ -1,12 +1,11 @@
 import express from 'express';
 import axios from 'axios';
 import bodyParser from 'body-parser';
-import EventInterface from '../client/src/interface/EventInterface';
 
 const app = express();
 app.use(bodyParser.json());
 
-const events: EventInterface[] = [];
+const events = [];
 
 app.post('/events', (req, res) => {
   const event = req.body;

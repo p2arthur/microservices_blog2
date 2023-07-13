@@ -3,7 +3,8 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { randomBytes } from 'crypto';
 import axios from 'axios';
-
+import ReqResInterface from './interfaces/ReqResInterface';
+import { Request, Response } from 'express';
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -16,11 +17,11 @@ interface PostInterface {
 
 const posts: { [id: string]: PostInterface } = {};
 
-app.get('/posts', (req, res) => {
+app.get('/posts', (req: Request, res: Response) => {
   res.send(posts);
 });
 
-app.post('/posts', async (req, res) => {
+app.post('/posts', async (req: Request, res: Response) => {
   const id = randomBytes(4).toString('hex') as string;
   const title = req.body.title as string;
 
@@ -34,7 +35,7 @@ app.post('/posts', async (req, res) => {
   res.status(201).send(posts[id]);
 });
 
-app.post('/events', (req, res) => {
+app.post('/events', (req: Request, res: Response) => {
   console.log('Posts:', req.body.type);
   console.log('Type', req.body.type);
   res.status(201).send('Event posted');
