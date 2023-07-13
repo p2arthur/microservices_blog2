@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import EventInterface from '../client/src/interface/EventInterface';
+import axios from 'axios';
 
 const app = express();
 app.use(bodyParser.json());
@@ -76,4 +77,11 @@ app.post('/events', (req, res) => {
   res.sendStatus(201);
 });
 
-app.listen(4003, () => console.log('Listening for events on port 4003'));
+app.listen(4003, async () => {
+  console.log('Listening for events on port 4003');
+  const { data } = await axios.get('http://localhost:4005/events');
+
+  data.forEach((event: EventInterface) =>
+    handleEvent({ type: event.type, data: event.data })
+  );
+});
