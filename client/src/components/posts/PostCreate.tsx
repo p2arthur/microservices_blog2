@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default function PostCreate() {
+export default function PostCreate({ addPost }) {
   const [postTilte, setPostTitle] = useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -11,7 +11,9 @@ export default function PostCreate() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const title = postTilte;
+
     await axios.post('http://localhost:4001/posts', { title });
+    addPost({ id: '', title, comments: [] });
   };
 
   return (

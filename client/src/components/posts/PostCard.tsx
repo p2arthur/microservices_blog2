@@ -13,8 +13,6 @@ export default function PostCard({ id, title, comments }: PostInterface) {
         <div className="h-px bg-purple-800 w-full" />
       </div>
 
-      <CommentList comments={comments} />
-
       <div>
         <CreateComment id={id} />
       </div>

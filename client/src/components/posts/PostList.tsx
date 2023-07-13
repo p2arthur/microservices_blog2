@@ -4,18 +4,13 @@ import PostInterface from '../../interface/PostInterface';
 
 import PostCard from './PostCard';
 
-export default function PostList() {
-  const [postList, setPostList] = useState<PostInterface>({});
-
-  const fetchPosts = async () => {
-    const response = await axios.get('http://localhost:4003/posts');
-    console.log('all posts:', response.data);
-    setPostList(response.data);
-  };
+export default function PostList({ sourcePostList }) {
+  const [postList, setPostList] = useState<PostInterface[]>(sourcePostList);
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    setPostList(sourcePostList);
+    console.log('post listtt', postList);
+  }, [sourcePostList]);
 
   const renderedPosts = Object.values(postList).map((post: PostInterface) => (
     <PostCard
