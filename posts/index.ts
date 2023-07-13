@@ -41,4 +41,7 @@ app.post('/events', (req: Request, res: Response) => {
   res.status(201).send('Event posted');
 });
 
-app.listen(4001, () => console.log('Listening for posts on port 4001'));
+app.listen(4001, () => {
+  console.log('Listening for posts on port 4001');
+  console.log('v55');
+});
