@@ -3,7 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-
   name: posts-depl
 
 spec:
@@ -17,20 +16,5 @@ spec:
         app: posts
     spec:
       containers:
-      - name: posts
-        image: p2arthur/blog-posts
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: posts-clusterip-srv
-spec:
-  type: ClusterIP
-  selector:
-    app: posts
-  ports:
-    - name: posts
-      protocol: TCP
-      port: 4001
-      targetPort: 4001
-
+        - name: posts-depl
+          image: p2arthur/posts:0.0.2

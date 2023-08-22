@@ -27,11 +27,11 @@ app.post('/posts', async (req: Request, res: Response) => {
 
   posts[id] = { id, title, comments: [] };
 
-  await axios.post('http://localhost:4005/events', {
+  await axios.post('http://eventbus-srv:4005/events', {
     type: 'PostCreated',
     data: { id, title, comments: [] },
   });
-
+  console.log('post created');
   res.status(201).send(posts[id]);
 });
 
@@ -43,5 +43,5 @@ app.post('/events', (req: Request, res: Response) => {
 
 app.listen(4001, () => {
   console.log('Listening for posts on port 4001');
-  console.log('v55');
+  console.log('v0.0.2');
 });
