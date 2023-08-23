@@ -43,5 +43,5 @@ app.post('/events', (req: Request, res: Response) => {
 
 app.listen(4001, () => {
   console.log('Listening for posts on port 4001');
-  console.log('v0.0.2');
+  console.log('v0.0.3');
 });

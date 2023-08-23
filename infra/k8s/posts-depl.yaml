@@ -17,4 +17,4 @@ spec:
     spec:
       containers:
         - name: posts-depl
-          image: p2arthur/posts:0.0.2
+          image: p2arthur/posts:latest
