@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: event-bus-depl
-          image: p2arthur/event-bus:latest
+          image: p2arthur/event-bus
 ---
 apiVersion: v1
 kind: Service
