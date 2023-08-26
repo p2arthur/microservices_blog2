@@ -77,7 +77,7 @@ app.post('/events', (req, res) => {
 
 app.listen(4003, async () => {
   console.log('Listening for events on port 4003');
-  // const { data } = await axios.get('http://localhost:4005/events');
+  const { data } = await axios.get('http://event-bus-srv:4005/events');
 
-  // data.forEach((event) => handleEvent(event.type, event.data));
+  data.forEach((event) => handleEvent(event.type, event.data));
 });
