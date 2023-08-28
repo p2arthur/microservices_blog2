@@ -8,6 +8,8 @@ app.use(bodyParser.json());
 app.post('/events', async (req, res) => {
   const { type, data } = req.body;
 
+  console.log(type);
+
   if (type === 'CommentCreated') {
     const bodyContent = data.content;
     const newStatus = bodyContent === 'orange' ? 'rejected' : 'approved';

@@ -9,6 +9,9 @@ const events = [];
 
 app.post('/events', (req, res) => {
   const event = req.body;
+
+  console.log('Event bus req.body');
+
   events.push(event);
   axios
     .post('http://posts-clusterip-srv:4001/events', event)
@@ -35,4 +38,5 @@ app.get('/events', (req, res) => {
 
 app.listen(4005, () => {
   console.log('Listening for events on port 4005');
+  console.log('v0.0.2');
 });
