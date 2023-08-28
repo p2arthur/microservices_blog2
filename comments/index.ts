@@ -37,7 +37,7 @@ app.post('/posts/:id/comments', async (req, res) => {
   console.log('Comments:', commentsByPostId[postId]);
 
   try {
-    await axios.post('http://localhost:4005/events', {
+    await axios.post('http://event-bus-srv:4005/events', {
       type: 'CommentCreated',
       data: {
         commentId,
