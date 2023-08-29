@@ -13,6 +13,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: posts-clsuterip-srv
+                name: posts-clusterip-srv
                 port:
                   number: 4001
