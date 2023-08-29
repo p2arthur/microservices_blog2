@@ -82,4 +82,7 @@ app.post('/events', async (req, res) => {
   }
 });
 
-app.listen(4002, () => console.log('Listening for comments on port 4002'));
+app.listen(4002, () => {
+  console.log('Listening for comments on port 4002');
+  console.log('v0.0.1');
+});
