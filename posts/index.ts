@@ -17,7 +17,7 @@ interface PostInterface {
 
 const posts: { [id: string]: PostInterface } = {};
 
-app.get('/posts', (req: Request, res: Response) => {
+app.get('/createpost', (req: Request, res: Response) => {
   res.send(posts);
 });
 
@@ -27,10 +27,13 @@ app.post('/posts/create', async (req: Request, res: Response) => {
 
   posts[id] = { id, title, comments: [] };
 
-  await axios.post('http://event-bus-srv:4005/events', {
-    type: 'PostCreated',
-    data: { id, title, comments: [] },
-  });
+  await axios
+    .post('http://event-bus-cluster-ip:4005/events', {
+      type: 'PostCreated',
+      data: { id, title, comments: [] },
+    })
+    .catch((error) => console.error(error));
+
   console.log('post created');
   res.status(201).send(posts[id]);
 });
@@ -43,5 +46,5 @@ app.post('/events', (req: Request, res: Response) => {
 
 app.listen(4001, () => {
   console.log('Listening for posts on port 4001');
-  console.log('v0.0.5');
+  console.log('v0.1.5');
 });
