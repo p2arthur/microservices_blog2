@@ -12,7 +12,7 @@ export default function CreateComment({ id }: { id: string }) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    axios.post(`http://localhost:4002/posts/${id}/comments`, {
+    axios.post(`http://posts.com/posts/${id}/comments`, {
       content: commentContent,
     });
   };

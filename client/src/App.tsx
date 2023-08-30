@@ -8,7 +8,7 @@ export default function App() {
   const [posts, setPosts] = useState<PostInterface[]>();
 
   const fetchPosts = async () => {
-    const { data } = await axios.get('http://localhost:4003/posts');
+    const { data } = await axios.get('http://posts.com/posts');
     console.log('posts data:', data);
     setPosts(data);
   };
@@ -17,7 +17,7 @@ export default function App() {
     fetchPosts();
   }, []);
 
-  const addPost = (post) => {
+  const addPost = (post: PostInterface) => {
     console.log('posssssts', posts);
     console.log('post created', posts);
     console.log('post created***', post);
