@@ -16,3 +16,10 @@ spec:
                 name: posts-clusterip-srv
                 port:
                   number: 4001
+          - path: /posts
+            pathType: Prefix
+            backend:
+              service:
+                name: query-cluster-ip
+                port:
+                  number: 4003
