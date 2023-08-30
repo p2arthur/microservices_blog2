@@ -12,7 +12,7 @@ export default function PostCreate({ addPost }) {
     event.preventDefault();
     const title = postTilte;
 
-    await axios.post('http://posts.com/posts', { title });
+    await axios.post('http://posts.com/posts/create', { title });
     addPost({ id: '', title, comments: [] });
   };
 
