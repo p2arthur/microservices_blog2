@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 const app = express();
 app.use(bodyParser.json());
@@ -76,13 +76,15 @@ app.post('/events', (req, res) => {
 
 app.listen(4003, async () => {
   console.log('Listening for events on port 4003');
-  const response = await axios
-    .get('http://event-bus-cluster-ip:4005/events')
-    .catch((error) => console.log(error));
-
-  const { data } = response;
-
-  data.forEach((event: { type: string; data: {} }) =>
-    handleEvent(event.type, event.data)
-  );
+  try {
+    const response: AxiosResponse<any> = await axios.get(
+      'http://event-bus-cluster-ip:4005/events'
+    );
+    const { data } = response;
+    data.forEach((event: { type: string; data: {} }) =>
+      handleEvent(event.type, event.data)
+    );
+  } catch (error) {
+    console.error(error);
+  }
 });
