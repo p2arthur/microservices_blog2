@@ -8,7 +8,7 @@ export default function App() {
   const [posts, setPosts] = useState<PostInterface[]>();
 
   const fetchPosts = async () => {
-    const { data } = await axios.get('http://posts.com/posts');
+    const { data } = await axios.get('http://posts.com/posts/create');
     console.log('posts data:', data);
     setPosts(data);
   };
