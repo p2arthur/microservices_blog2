@@ -16,15 +16,17 @@ app.post('/events', async (req, res) => {
 
     console.log('reqBody', data);
     try {
-      await axios.post('http://event-bus-cluster-ip:4005/events', {
-        type: 'CommentModerated',
-        data: {
-          postId: data.postId,
-          content: bodyContent,
-          commentId: data.commentId,
-          status: newStatus,
-        },
-      });
+      await axios
+        .post('http://event-bus-cluster-ip:4005/events', {
+          type: 'CommentModerated',
+          data: {
+            postId: data.postId,
+            content: bodyContent,
+            commentId: data.commentId,
+            status: newStatus,
+          },
+        })
+        .catch((error) => console.log(error));
     } catch (error) {
       console.error(error);
     }
