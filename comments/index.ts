@@ -70,15 +70,17 @@ app.post('/events', async (req, res) => {
     comment.status = status;
     console.log('comment:', comment);
 
-    await axios.post('http://event-bus-cluster-ip:4005/events', {
-      type: 'CommentUpdated',
-      data: {
-        commentId,
-        status,
-        postId,
-        content,
-      },
-    });
+    await axios
+      .post('http://event-bus-cluster-ip:4005/events', {
+        type: 'CommentUpdated',
+        data: {
+          commentId,
+          status,
+          postId,
+          content,
+        },
+      })
+      .catch((error) => console.log(error));
   }
 });
 
