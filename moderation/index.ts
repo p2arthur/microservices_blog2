@@ -16,7 +16,7 @@ app.post('/events', async (req, res) => {
 
     console.log('reqBody', data);
     try {
-      await axios.post('http://event-bus-srv:4005/events', {
+      await axios.post('http://event-bus-cluster-ip:4005/events', {
         type: 'CommentModerated',
         data: {
           postId: data.postId,
